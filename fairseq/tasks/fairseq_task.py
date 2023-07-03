@@ -273,7 +273,7 @@ class FairseqTask(object):
             and not update_epoch_batch_itr
             and self.can_reuse_epoch_itr(dataset)
         )
-        logger.info(f"can_reuse_epoch_itr = {can_reuse_epoch_itr}")
+        #logger.info(f"can_reuse_epoch_itr = {can_reuse_epoch_itr}")
         if can_reuse_epoch_itr and dataset in self.dataset_to_epoch_iter:
             logger.debug("reusing EpochBatchIterator for epoch {}".format(epoch))
             return self.dataset_to_epoch_iter[dataset]
@@ -284,7 +284,7 @@ class FairseqTask(object):
         dataset.set_epoch(epoch)
 
         def make_batches(dataset, epoch):
-            logger.info(f"creating new batches for epoch {epoch}")
+            #logger.info(f"creating new batches for epoch {epoch}")
 
             # get indices ordered by example size
             with data_utils.numpy_seed(seed + epoch):
@@ -308,11 +308,11 @@ class FairseqTask(object):
         reuse_dataloader = getattr(self.cfg, "reuse_dataloader", True)
         persistent_workers = getattr(self.cfg, "persistent_workers", True)
         rebuild_batches = getattr(self.cfg, "rebuild_batches", False)
-        logger.info(f"reuse_dataloader = {reuse_dataloader}")
-        logger.info(f"rebuild_batches = {rebuild_batches}")
+        #logger.info(f"reuse_dataloader = {reuse_dataloader}")
+        #logger.info(f"rebuild_batches = {rebuild_batches}")
 
         if rebuild_batches:
-            logger.info("batches will be rebuilt for each epoch")
+            #logger.info("batches will be rebuilt for each epoch")
             batch_sampler = make_batches
         else:
             batch_sampler = make_batches(dataset, epoch)
